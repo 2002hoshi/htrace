@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHẠY TRẠM APP</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="logo">🏁 CHẠY TRẠM</span>
+    <span class="status" id="server-status">đang kiểm tra…</span>
+  </header>
+
+  <main class="home">
+    <h1>CHẠY TRẠM APP</h1>
+    <p class="tagline">Game chạy trạm — bản demo. Chọn vai để bắt đầu.</p>
+
+    <div class="cards">
+      <a class="card admin" href="/admin.html">
+        <div class="card-icon">🎛️</div>
+        <h2>Admin</h2>
+        <p>Tạo game, tạo trạm, hiện QR, chấm điểm.</p>
+      </a>
+
+      <a class="card player" href="/player.html">
+        <div class="card-icon">🏃</div>
+        <h2>Người chơi</h2>
+        <p>Quét QR, giải câu đố, chinh phục các trạm.</p>
+      </a>
+    </div>
+  </main>
+
+  <footer class="foot">Bản demo · Node + Express · lưu bằng file JSON</footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

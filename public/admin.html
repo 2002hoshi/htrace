@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · CHẠY TRẠM</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/" style="color:#fff;text-decoration:none">🏁 CHẠY TRẠM</a>
+    <span class="status" id="admin-status">Admin</span>
+  </header>
+
+  <main class="admin-wrap">
+    <noscript>
+      <p class="msg bad">Trang Admin cần bật JavaScript để hoạt động.</p>
+    </noscript>
+
+    <!-- Màn đăng nhập (hiển thị mặc định; JS sẽ chuyển sang khu quản trị nếu đã đăng nhập) -->
+    <section id="view-login" class="panel">
+      <h1>Đăng nhập Admin</h1>
+      <form id="login-form" class="form" autocomplete="on">
+        <label>Email
+          <input type="email" name="email" required placeholder="admin@htrace" />
+        </label>
+        <label>Mật khẩu
+          <input type="password" name="password" required placeholder="••••••••" />
+        </label>
+        <button type="submit" class="btn">Đăng nhập</button>
+        <p class="msg" id="login-msg"></p>
+      </form>
+    </section>
+
+    <!-- Khu quản trị (sau khi đăng nhập) -->
+    <section id="view-admin" class="panel" hidden>
+      <div class="admin-head">
+        <h1>Bảng điều khiển</h1>
+        <div class="who">
+          <span id="who-email" class="who-email"></span>
+          <button id="logout-btn" class="btn ghost">Đăng xuất</button>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="box">
+          <h2>Tạo Game</h2>
+          <form id="game-form" class="form">
+            <label>Tên game
+              <input type="text" name="name" required placeholder="Ví dụ: Chạy Trạm Hè 2026" />
+            </label>
+            <label>Số đội dự kiến
+              <input type="number" name="teamCount" min="1" step="1" required placeholder="15" />
+            </label>
+            <label>Banner URL (tùy chọn)
+              <input type="url" name="bannerUrl" placeholder="https://..." />
+            </label>
+            <button type="submit" class="btn">Tạo game</button>
+            <p class="msg" id="game-msg"></p>
+          </form>
+        </div>
+
+        <div class="box">
+          <h2>Danh sách game</h2>
+          <ul id="game-list" class="game-list"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "admins": [
+    {
+      "id": "5ddc0a39-1a5d-4a2d-90f8-ba8e1c100361",
+      "email": "admin@htrace",
+      "passwordHash": "8e52529f385085f7f6060375ec5a78ea:348a33194f8adeb69f01b911f7580c8ef525278addf5c649c7bf717cc9eabc945a85a403aefdc60387caa0331807734e20286ca9bd443d907c42b1cbeac0fabb"
+    }
+  ],
+  "games": [],
+  "stations": [],
+  "teams": [],
+  "questions": [],
+  "scores": []
+}
