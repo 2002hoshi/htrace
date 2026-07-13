@@ -10,9 +10,11 @@
 
 const crypto = require('crypto');
 const express = require('express');
+const QRCode = require('qrcode');
 const db = require('../db');
 const auth = require('../auth');
 const { buildTeamSlots } = require('../teams');
+const { buildJoinUrl } = require('../qr');
 
 const router = express.Router();
 
@@ -158,6 +160,32 @@ router.post('/games/:gameId/teams', (req, res) => {
     return res.status(409).json({ error: 'Game này đã sinh slot đội rồi.' });
   }
   res.status(201).json({ teams: result.slots });
+});
+
+// Mã QR để đội quét vào 1 game. Trả link tham gia + ảnh QR dạng SVG.
+router.get('/games/:gameId/qr', async (req, res) => {
+  // Bọc cả thân handler: handler async nên throw đồng bộ (vd db.read khi db hỏng)
+  // sẽ thành unhandled rejection và Express 4 không tự trả 500 -> client treo.
+  try {
+    const { games } = db.read();
+    const game = games.find((g) => g.id === req.params.gameId);
+    if (!game) {
+      return res.status(404).json({ error: 'Không tìm thấy game.' });
+    }
+
+    const host = req.get('host');
+    if (!host) {
+      return res.status(400).json({ error: 'Thiếu Host trong yêu cầu.' });
+    }
+
+    // Origin lấy từ request để điện thoại cùng mạng LAN quét ra đúng host.
+    const origin = `${req.protocol}://${host}`;
+    const joinUrl = buildJoinUrl(origin, game.id);
+    const qrSvg = await QRCode.toString(joinUrl, { type: 'svg', margin: 1, width: 512 });
+    res.json({ game: { id: game.id, name: game.name }, joinUrl, qrSvg });
+  } catch (err) {
+    res.status(500).json({ error: 'Không tạo được mã QR.' });
+  }
 });
 
 module.exports = router;

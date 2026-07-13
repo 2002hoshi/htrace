@@ -62,6 +62,11 @@ Khi chạy lần đầu (DB chưa có admin), hệ thống tự tạo admin mặ
 | `POST /api/admin/games` | token | tạo game (`name`, `teamCount`, `bannerUrl?`) |
 | `GET /api/admin/games/:gameId/teams` | token | danh sách đội của game |
 | `POST /api/admin/games/:gameId/teams` | token | sinh slot đội + tên tự động (1 lần/game) |
+| `GET /api/admin/games/:gameId/qr` | token | link tham gia + mã QR (SVG) của game |
 | `GET /api/player/status` | không | số game/trạm/đội |
+
+Trang `qr.html?game=<gameId>` (mở từ nút "Hiện QR" ở trang admin) hiển thị mã QR
+lớn để chiếu/đưa đội quét. QR mã hóa link `player.html?game=<gameId>` theo đúng
+host admin đang dùng, nên điện thoại cùng mạng LAN quét là vào được.
 
 API bảo vệ yêu cầu header `Authorization: Bearer <token>`.

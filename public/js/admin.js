@@ -85,7 +85,13 @@ function renderGames(games) {
     const meta = document.createElement('span');
     meta.className = 'meta';
     meta.textContent = `${g.teamCount} đội · ${created}`;
-    head.append(strong, meta);
+    const qrLink = document.createElement('a');
+    qrLink.className = 'qr-btn';
+    qrLink.textContent = '📱 Hiện QR';
+    qrLink.href = `/qr.html?game=${encodeURIComponent(g.id)}`;
+    qrLink.target = '_blank';
+    qrLink.rel = 'noopener';
+    head.append(strong, meta, qrLink);
 
     const teamsArea = document.createElement('div');
     teamsArea.className = 'teams-area';
