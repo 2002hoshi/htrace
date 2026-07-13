@@ -11,13 +11,39 @@
     <a class="logo" href="/" style="color:#fff;text-decoration:none">🏁 CHẠY TRẠM</a>
     <span class="status">Người chơi</span>
   </header>
-  <main class="home">
-    <h1>Trang Người chơi</h1>
-    <p class="tagline">Khung trang đã sẵn sàng. Luồng chơi (nhận đội, giải câu đố, nhận trạm, xem kết quả) sẽ được thêm ở bước tiếp theo.</p>
-    <a class="card player" href="/" style="max-width:280px;margin:0 auto">
-      <div class="card-icon">↩️</div>
-      <h2>Về trang chủ</h2>
-    </a>
+
+  <main class="player-page">
+    <noscript>
+      <p class="msg bad">Trang cần bật JavaScript để hoạt động.</p>
+    </noscript>
+
+    <!-- Đang xử lý -->
+    <section id="view-loading" class="player-view">
+      <p class="player-hint">Đang vào game…</p>
+    </section>
+
+    <!-- Đã vào đội -->
+    <section id="view-joined" class="player-view" hidden>
+      <p class="player-brand">Bạn là</p>
+      <h1 id="team-name" class="team-name"></h1>
+      <p class="player-hint">Giữ nguyên trang này. Chờ ban tổ chức bắt đầu nhé!</p>
+    </section>
+
+    <!-- Hết slot -->
+    <section id="view-full" class="player-view" hidden>
+      <div class="player-emoji">😢</div>
+      <h1 class="player-title">Xin lỗi, đã hết slot!</h1>
+      <p class="player-hint">Game này đã đủ đội. Hẹn bạn lần sau nhé!</p>
+    </section>
+
+    <!-- Lỗi -->
+    <section id="view-error" class="player-view" hidden>
+      <div class="player-emoji">⚠️</div>
+      <h1 class="player-title">Không vào được game</h1>
+      <p id="error-msg" class="player-hint"></p>
+    </section>
   </main>
+
+  <script src="/js/player.js"></script>
 </body>
 </html>
