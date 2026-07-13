@@ -170,3 +170,19 @@ h1 {
 }
 .game-list li.empty { color: var(--muted); text-align: center; border-style: dashed; }
 .game-list .meta { font-size: 13px; color: var(--muted); }
+
+.game-head { display: flex; flex-direction: column; gap: 2px; }
+
+.btn.small { padding: 7px 12px; font-size: 14px; }
+
+.teams-area { margin-top: 10px; font-size: 13px; color: var(--muted); }
+.teams-label { margin-bottom: 6px; color: var(--ink); font-weight: 600; }
+.team-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.team-chip {
+  padding: 4px 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--ink);
+}

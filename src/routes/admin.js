@@ -12,6 +12,7 @@ const crypto = require('crypto');
 const express = require('express');
 const db = require('../db');
 const auth = require('../auth');
+const { buildTeamSlots } = require('../teams');
 
 const router = express.Router();
 
@@ -120,6 +121,43 @@ router.post('/games', (req, res) => {
   });
 
   res.status(201).json({ game });
+});
+
+// Liệt kê đội của 1 game.
+router.get('/games/:gameId/teams', (req, res) => {
+  const { games, teams } = db.read();
+  if (!games.some((g) => g.id === req.params.gameId)) {
+    return res.status(404).json({ error: 'Không tìm thấy game.' });
+  }
+  res.json({ teams: teams.filter((t) => t.gameId === req.params.gameId) });
+});
+
+// Sinh slot đội cho 1 game (1 lần/game). Tên đội auto-generate.
+router.post('/games/:gameId/teams', (req, res) => {
+  const gameId = req.params.gameId;
+
+  const result = db.update((data) => {
+    const game = data.games.find((g) => g.id === gameId);
+    if (!game) return { error: 404 };
+    // Phòng dữ liệu bị sửa tay: teamCount phải là số nguyên ≥ 1.
+    if (!Number.isInteger(game.teamCount) || game.teamCount < 1) return { error: 400 };
+    if (data.teams.some((t) => t.gameId === gameId)) return { error: 409 };
+    const slots = buildTeamSlots(gameId, game.teamCount);
+    // Push từng phần tử (không spread) để không vỡ ngăn xếp khi số đội rất lớn.
+    for (const slot of slots) data.teams.push(slot);
+    return { slots };
+  });
+
+  if (result.error === 404) {
+    return res.status(404).json({ error: 'Không tìm thấy game.' });
+  }
+  if (result.error === 400) {
+    return res.status(400).json({ error: 'Số đội của game không hợp lệ.' });
+  }
+  if (result.error === 409) {
+    return res.status(409).json({ error: 'Game này đã sinh slot đội rồi.' });
+  }
+  res.status(201).json({ teams: result.slots });
 });
 
 module.exports = router;

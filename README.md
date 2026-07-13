@@ -60,6 +60,8 @@ Khi chạy lần đầu (DB chưa có admin), hệ thống tự tạo admin mặ
 | `POST /api/admin/admins` | token | thêm admin mới |
 | `GET /api/admin/games` | token | danh sách game |
 | `POST /api/admin/games` | token | tạo game (`name`, `teamCount`, `bannerUrl?`) |
+| `GET /api/admin/games/:gameId/teams` | token | danh sách đội của game |
+| `POST /api/admin/games/:gameId/teams` | token | sinh slot đội + tên tự động (1 lần/game) |
 | `GET /api/player/status` | không | số game/trạm/đội |
 
 API bảo vệ yêu cầu header `Authorization: Bearer <token>`.
